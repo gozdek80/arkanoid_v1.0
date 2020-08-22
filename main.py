@@ -72,7 +72,8 @@ class Game_Over_Screen(Turtle):
         self.color("white")
         self.write("GAME OVER", font=("ARIAL", 40, "bold"))
         self.hideturtle()
-        winsound.PlaySound("gameover.wav", winsound.SND_ASYNC)
+        winsound.PlaySound("gameover.wav", winsound.SND_ASYNC) # windows
+        # os.system("aplay gameover.wav&") # linux
         time.sleep(2)
         self.clear()
         del self
@@ -305,7 +306,8 @@ class Levels:
             score_b.reset()
             lives_b.reset()
 
-        winsound.PlaySound("nextlevel.wav", winsound.SND_ASYNC)
+        winsound.PlaySound("nextlevel.wav", winsound.SND_ASYNC) # windows
+        # os.system("aplay nextlevel.wav&") # linux
 
         Level_Screen(self.current_level)
 
@@ -475,39 +477,43 @@ while True:
     if ball.xcor() > 370:
         ball.setx(370)
         ball.ball_dx *= -1
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC) # windows
+        # os.system("aplay bounce.wav&") # linux
     if ball.xcor() < -380:
         ball.setx(-380)
         ball.ball_dx *= -1
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC) # windows
+        # os.system("aplay bounce.wav&") # linux
     if ball.ycor() > 250:
         ball.sety(250)
         ball.ball_dy *= -1
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC) # windows
+        # os.system("aplay bounce.wav&") # linux
 
     # OUT OF BORDER - BALL
     if ball.ycor() < -300:
         ball.reset_position()
         lives_b.update(-1)
-        winsound.PlaySound("upsss.wav", winsound.SND_ASYNC)
+        winsound.PlaySound("upsss.wav", winsound.SND_ASYNC) # windows
+        # os.system("aplay upsss.wav&") # linux
         time.sleep(1)
 
     # COLLISION BALL <-> PADDLE
     if ball.ycor() < -210 and ball.xcor() > paddle.xcor() - 42 and ball.xcor() < paddle.xcor() + 42:
         ball.sety(-210)
         ball.ball_dy *= -1
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
-
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC) #windows
+        # os.system("aplay bounce.wav&") # linux
 
     for br in levels.bricks:
         # COLLISION BRICK <-> BALL
         if math.sqrt(math.pow(br.xcor() - ball.xcor(), 2) + math.pow(br.ycor() - ball.ycor(), 2)) < 25 and br.active:
-            #ball.sety(br.ycor())
             ball.ball_dy *= -1
             score_b.update(abs(br.ycor()))
             br.deactiate()
             disabled_bricks_counter.add()
-            winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+            winsound.PlaySound("bounce.wav", winsound.SND_ASYNC) # windows
+            # os.system("aplay bounce.wav&") # linux
 
         # COLLISION BRICK <-> BULLET
         if math.sqrt(math.pow(br.xcor() - bullet.xcor(), 2) + math.pow(br.ycor() - bullet.ycor(), 2)) < 25 and br.active:
@@ -516,7 +522,8 @@ while True:
             score_b.update(abs(br.ycor()))
             br.deactiate()
             disabled_bricks_counter.add()
-            winsound.PlaySound("bullethit.wav", winsound.SND_ASYNC)
+            winsound.PlaySound("bullethit.wav", winsound.SND_ASYNC) # windows
+            # os.system("aplay bullethit.wav&") # linux
 
     # BULLET - OUT OF THE SCREEN
     if bullet.ycor() > 250:
